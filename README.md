@@ -148,6 +148,8 @@ target:
 * `mgob-host:8090/metrics` Prometheus endpoint
 * `mgob-host:8090/version` mgob version and runtime info
 * `mgob-host:8090/debug` pprof endpoint
+* `mgob-host:8090/backup/:planID` on-demand backup
+* `mgob-host:8090/reload` reload plans & restart scheduler
 
 On demand backup:
 
@@ -183,6 +185,20 @@ curl -X GET http://mgob-host:8090/status/mongo-debug
   "last_run": "2017-05-13T11:31:00.000622589Z",
   "last_run_status": "200",
   "last_run_log": "Backup finished in 2.339055539s archive mongo-debug-1494675060.gz size 527 kB"
+}
+```
+
+Reload plans:
+
+* HTTP POST `mgob-host:8090/reload`
+
+```bash
+curl -X POST http://mgob-host:8090/reload
+```
+
+```json
+{
+  "status": "Plans reloaded"
 }
 ```
 
