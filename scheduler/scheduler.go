@@ -70,6 +70,24 @@ func (s *Scheduler) Start() error {
 	return nil
 }
 
+func (s *Scheduler) Reload() error {
+	plans, err := config.LoadPlans(s.Config.ConfigPath)
+	if err != nil {
+		logrus.Errorf("Plan reload failed: %v", err)
+		return err
+	}
+
+	s.Cron.Stop()
+	s.Cron = cron.New()
+	s.Plans = plans
+	err = s.Start()
+	if err != nil {
+		logrus.Errorf("Scheduler start failed: %v", err)
+		return err
+	}
+	return nil
+}
+
 type backupJob struct {
 	name    string
 	plan    config.Plan

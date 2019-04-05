@@ -9,12 +9,15 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/stefanprodan/mgob/config"
 	"github.com/stefanprodan/mgob/db"
+	"github.com/stefanprodan/mgob/scheduler"
+
 	"strings"
 )
 
 type HttpServer struct {
-	Config *config.AppConfig
-	Stats  *db.StatusStore
+	Config    *config.AppConfig
+	Stats     *db.StatusStore
+	Scheduler *scheduler.Scheduler
 }
 
 func (s *HttpServer) Start(version string) {
@@ -44,7 +47,12 @@ func (s *HttpServer) Start(version string) {
 		r.Post("/{planID}", postBackup)
 	})
 
-	FileServer(r,"/storage", http.Dir(s.Config.StoragePath))
+	r.Route("/reload", func(r chi.Router) {
+		r.Use(reloadCtx(s.Scheduler))
+		r.Post("/", postReload)
+	})
+
+	FileServer(r, "/storage", http.Dir(s.Config.StoragePath))
 
 	logrus.Error(http.ListenAndServe(fmt.Sprintf(":%v", s.Config.Port), r))
 }
