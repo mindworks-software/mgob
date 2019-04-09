@@ -7,8 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/mindworks-software/mgob/config"
 	"github.com/pkg/errors"
-	"github.com/stefanprodan/mgob/config"
 )
 
 type slackPayload struct {

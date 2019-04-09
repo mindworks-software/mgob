@@ -6,13 +6,13 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	"github.com/dustin/go-humanize"
+	"github.com/mindworks-software/mgob/backup"
+	"github.com/mindworks-software/mgob/config"
+	"github.com/mindworks-software/mgob/db"
+	"github.com/mindworks-software/mgob/metrics"
+	"github.com/mindworks-software/mgob/notifier"
 	"github.com/pkg/errors"
 	"github.com/robfig/cron"
-	"github.com/stefanprodan/mgob/backup"
-	"github.com/stefanprodan/mgob/config"
-	"github.com/stefanprodan/mgob/db"
-	"github.com/stefanprodan/mgob/metrics"
-	"github.com/stefanprodan/mgob/notifier"
 )
 
 type Scheduler struct {

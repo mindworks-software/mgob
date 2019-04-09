@@ -7,7 +7,7 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/go-chi/render"
 
-	"github.com/stefanprodan/mgob/scheduler"
+	"github.com/mindworks-software/mgob/scheduler"
 )
 
 func reloadCtx(data *scheduler.Scheduler) func(next http.Handler) http.Handler {

@@ -2,12 +2,12 @@ FROM golang:1.11
 
 ARG APP_VERSION=unkown
 
-ADD . /go/src/github.com/stefanprodan/mgob
+ADD . /go/src/github.com/mindworks-software/mgob
 
-WORKDIR /go/src/github.com/stefanprodan/mgob
+WORKDIR /go/src/github.com/mindworks-software/mgob
 
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags "-X main.version=$APP_VERSION" \
-    -a -installsuffix cgo -o mgob github.com/stefanprodan/mgob
+    -a -installsuffix cgo -o mgob github.com/mindworks-software/mgob
 
 FROM alpine:latest
 
@@ -63,7 +63,7 @@ RUN apk add py-pip && \
   pip install azure-cli==${AZURE_CLI_VERSION} && \
   apk del --purge build
 
-COPY --from=0 /go/src/github.com/stefanprodan/mgob/mgob .
+COPY --from=0 /go/src/github.com/mindworks-software/mgob/mgob .
 
 VOLUME ["/config", "/storage", "/tmp", "/data"]
 

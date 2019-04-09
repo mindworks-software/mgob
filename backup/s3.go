@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/codeskyblue/go-sh"
+	"github.com/mindworks-software/mgob/config"
 	"github.com/pkg/errors"
-	"github.com/stefanprodan/mgob/config"
 )
 
 func s3Upload(file string, plan config.Plan) (string, error) {

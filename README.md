@@ -1,7 +1,7 @@
 # mgob
 
-[![Build Status](https://travis-ci.org/stefanprodan/mgob.svg?branch=master)](https://travis-ci.org/stefanprodan/mgob)
-[![Docker Image](https://images.microbadger.com/badges/image/stefanprodan/mgob:edge.svg)](https://hub.docker.com/r/stefanprodan/mgob/)
+[![Build Status](https://travis-ci.org/mindworks-software/mgob.svg?branch=master)](https://travis-ci.org/mindworks-software/mgob)
+[![Docker Image](https://images.microbadger.com/badges/image/mindworks-software/mgob:edge.svg)](https://hub.docker.com/r/mindworks-software/mgob/)
 
 MGOB is a MongoDB backup automation tool built with golang.
 
@@ -19,20 +19,29 @@ MGOB is a MongoDB backup automation tool built with golang.
 
 #### Install
 
-MGOB is available on Docker Hub at [stefanprodan/mgob](https://hub.docker.com/r/stefanprodan/mgob/).
+Clone MGOB  [github.com/mindworks-software/mgob/](https://github.com/mindworks-software/mgob/)
 
-Supported tags:
+Checkout latest branch
 
-* `stefanprodan/mgob:latest` latest stable [release](https://github.com/stefanprodan/mgob/releases)
-* `stefanprodan/mgob:edge` master branch latest successful [build](https://travis-ci.org/stefanprodan/mgob)
+```bash
+git@github.com:mindworks-software/mgob.git
+
+```
 
 Compatibility matrix:
 
  MGOB| MongoDB
 -----|--------
-`stefanprodan/mgob:0.9` | 3.4
-`stefanprodan/mgob:0.10` | 3.6
-`stefanprodan/mgob:1.0` | 4.0
+`mindworks-software/mgob:0.9` | 3.4
+`mindworks-software/mgob:0.10` | 3.6
+`mindworks-software/mgob:1.0` | 4.0
+
+Docker-compose:
+
+```bash
+docker-compose up [-d] [--build]
+
+```
 
 Docker:
 
@@ -42,13 +51,10 @@ docker run -dp 8090:8090 --name mgob \
     -v "/mgob/storage:/storage" \
     -v "/mgob/tmp:/tmp" \
     -v "/mgob/data:/data" \
-    stefanprodan/mgob \
+    mindworks-software/mgob \
     -LogLevel=info
 ```
 
-Kubernetes:
-
-A step by step guide on running MGOB as a StatefulSet with PersistentVolumeClaims can be found [here](https://github.com/stefanprodan/mgob/tree/master/k8s).
 
 #### Configure
 
