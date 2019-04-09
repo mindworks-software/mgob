@@ -6,13 +6,13 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	"github.com/dustin/go-humanize"
+	"github.com/mindworks-software/mgob/backup"
+	"github.com/mindworks-software/mgob/config"
+	"github.com/mindworks-software/mgob/db"
+	"github.com/mindworks-software/mgob/metrics"
+	"github.com/mindworks-software/mgob/notifier"
 	"github.com/pkg/errors"
 	"github.com/robfig/cron"
-	"github.com/stefanprodan/mgob/backup"
-	"github.com/stefanprodan/mgob/config"
-	"github.com/stefanprodan/mgob/db"
-	"github.com/stefanprodan/mgob/metrics"
-	"github.com/stefanprodan/mgob/notifier"
 )
 
 type Scheduler struct {
@@ -67,6 +67,24 @@ func (s *Scheduler) Start() error {
 		logrus.Errorf("Status store sync failed %v", err)
 	}
 
+	return nil
+}
+
+func (s *Scheduler) Reload() error {
+	plans, err := config.LoadPlans(s.Config.ConfigPath)
+	if err != nil {
+		logrus.Errorf("Plan reload failed: %v", err)
+		return err
+	}
+
+	s.Cron.Stop()
+	s.Cron = cron.New()
+	s.Plans = plans
+	err = s.Start()
+	if err != nil {
+		logrus.Errorf("Scheduler start failed: %v", err)
+		return err
+	}
 	return nil
 }
 

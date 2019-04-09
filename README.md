@@ -1,7 +1,7 @@
 # mgob
 
-[![Build Status](https://travis-ci.org/stefanprodan/mgob.svg?branch=master)](https://travis-ci.org/stefanprodan/mgob)
-[![Docker Image](https://images.microbadger.com/badges/image/stefanprodan/mgob:edge.svg)](https://hub.docker.com/r/stefanprodan/mgob/)
+[![Build Status](https://travis-ci.org/mindworks-software/mgob.svg?branch=master)](https://travis-ci.org/mindworks-software/mgob)
+[![Docker Image](https://images.microbadger.com/badges/image/mindworks-software/mgob:edge.svg)](https://hub.docker.com/r/mindworks-software/mgob/)
 
 MGOB is a MongoDB backup automation tool built with golang.
 
@@ -19,20 +19,29 @@ MGOB is a MongoDB backup automation tool built with golang.
 
 #### Install
 
-MGOB is available on Docker Hub at [stefanprodan/mgob](https://hub.docker.com/r/stefanprodan/mgob/).
+Clone MGOB  [github.com/mindworks-software/mgob/](https://github.com/mindworks-software/mgob/)
 
-Supported tags:
+Checkout latest branch
 
-* `stefanprodan/mgob:latest` latest stable [release](https://github.com/stefanprodan/mgob/releases)
-* `stefanprodan/mgob:edge` master branch latest successful [build](https://travis-ci.org/stefanprodan/mgob)
+```bash
+git@github.com:mindworks-software/mgob.git
+
+```
 
 Compatibility matrix:
 
  MGOB| MongoDB
 -----|--------
-`stefanprodan/mgob:0.9` | 3.4
-`stefanprodan/mgob:0.10` | 3.6
-`stefanprodan/mgob:1.0` | 4.0
+`mindworks-software/mgob:0.9` | 3.4
+`mindworks-software/mgob:0.10` | 3.6
+`mindworks-software/mgob:1.0` | 4.0
+
+Docker-compose:
+
+```bash
+docker-compose up [-d] [--build]
+
+```
 
 Docker:
 
@@ -42,13 +51,10 @@ docker run -dp 8090:8090 --name mgob \
     -v "/mgob/storage:/storage" \
     -v "/mgob/tmp:/tmp" \
     -v "/mgob/data:/data" \
-    stefanprodan/mgob \
+    mindworks-software/mgob \
     -LogLevel=info
 ```
 
-Kubernetes:
-
-A step by step guide on running MGOB as a StatefulSet with PersistentVolumeClaims can be found [here](https://github.com/stefanprodan/mgob/tree/master/k8s).
 
 #### Configure
 
@@ -148,6 +154,8 @@ target:
 * `mgob-host:8090/metrics` Prometheus endpoint
 * `mgob-host:8090/version` mgob version and runtime info
 * `mgob-host:8090/debug` pprof endpoint
+* `mgob-host:8090/backup/:planID` on-demand backup
+* `mgob-host:8090/reload` reload plans & restart scheduler
 
 On demand backup:
 
@@ -183,6 +191,20 @@ curl -X GET http://mgob-host:8090/status/mongo-debug
   "last_run": "2017-05-13T11:31:00.000622589Z",
   "last_run_status": "200",
   "last_run_log": "Backup finished in 2.339055539s archive mongo-debug-1494675060.gz size 527 kB"
+}
+```
+
+Reload plans:
+
+* HTTP POST `mgob-host:8090/reload`
+
+```bash
+curl -X POST http://mgob-host:8090/reload
+```
+
+```json
+{
+  "status": "Plans reloaded"
 }
 ```
 

@@ -1,0 +1,13 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile-backup-MW
+    ports:
+      - 8090:8090
+    volumes:
+      - /var/lib/qualica/mgob/config:/config
+      - /var/lib/qualica/mgob/storage:/storage
+      - /var/lib/qualica/mgob/tmp:/tmp
+      - /var/lib/qualica/mgob/data:/data

@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/mindworks-software/mgob/config"
 	"github.com/pkg/errors"
 	"github.com/pkg/sftp"
-	"github.com/stefanprodan/mgob/config"
 	"golang.org/x/crypto/ssh"
 )
 

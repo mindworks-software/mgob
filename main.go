@@ -8,11 +8,11 @@ import (
 	"syscall"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/stefanprodan/mgob/api"
-	"github.com/stefanprodan/mgob/backup"
-	"github.com/stefanprodan/mgob/config"
-	"github.com/stefanprodan/mgob/db"
-	"github.com/stefanprodan/mgob/scheduler"
+	"github.com/mindworks-software/mgob/api"
+	"github.com/mindworks-software/mgob/backup"
+	"github.com/mindworks-software/mgob/config"
+	"github.com/mindworks-software/mgob/db"
+	"github.com/mindworks-software/mgob/scheduler"
 )
 
 var version = "undefined"
@@ -36,24 +36,24 @@ func main() {
 	}
 	logrus.Info(info)
 
-	info, err = backup.CheckMinioClient()
-	if err != nil {
-		logrus.Fatal(err)
-	}
-	logrus.Info(info)
+	/*	info, err = backup.CheckMinioClient()
+		if err != nil {
+			logrus.Fatal(err)
+		}
+		logrus.Info(info)
 
-	info, err = backup.CheckGCloudClient()
-	if err != nil {
-		logrus.Fatal(err)
-	}
-	logrus.Info(info)
+		info, err = backup.CheckGCloudClient()
+		if err != nil {
+			logrus.Fatal(err)
+		}
+		logrus.Info(info)
 
-	info, err = backup.CheckAzureClient()
-	if err != nil {
-		logrus.Fatal(err)
-	}
-	logrus.Info(info)
-
+		info, err = backup.CheckAzureClient()
+		if err != nil {
+			logrus.Fatal(err)
+		}
+		logrus.Info(info)
+	*/
 	plans, err := config.LoadPlans(appConfig.ConfigPath)
 	if err != nil {
 		logrus.Fatal(err)
@@ -71,8 +71,9 @@ func main() {
 	sch.Start()
 
 	server := &api.HttpServer{
-		Config: appConfig,
-		Stats:  statusStore,
+		Config:    appConfig,
+		Stats:     statusStore,
+		Scheduler: sch,
 	}
 	logrus.Infof("Starting HTTP server on port %v", appConfig.Port)
 	go server.Start(version)

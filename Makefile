@@ -4,7 +4,7 @@ APP_VERSION?=1.0
 
 # build vars
 BUILD_DATE:=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-REPOSITORY:=stefanprodan
+REPOSITORY:=mindworks-software
 
 #run vars
 CONFIG:=$$(pwd)/test/config
