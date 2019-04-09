@@ -26,16 +26,6 @@ Checkout latest branch
 ```bash
 git@github.com:mindworks-software/mgob.git
 
-```
-
-Compatibility matrix:
-
- MGOB| MongoDB
------|--------
-`mindworks-software/mgob:0.9` | 3.4
-`mindworks-software/mgob:0.10` | 3.6
-`mindworks-software/mgob:1.0` | 4.0
-
 Docker-compose:
 
 ```bash
