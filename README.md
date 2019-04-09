@@ -21,10 +21,10 @@ MGOB is a MongoDB backup automation tool built with golang.
 
 Clone MGOB  [github.com/mindworks-software/mgob/](https://github.com/mindworks-software/mgob/)
 
-Checkout latest branch
 
 ```bash
-git@github.com:mindworks-software/mgob.git
+git clone git@github.com:mindworks-software/mgob.git
+```
 
 Docker-compose:
 
